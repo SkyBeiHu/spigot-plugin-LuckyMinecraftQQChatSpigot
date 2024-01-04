@@ -40,7 +40,7 @@ public class ConnectionPacketReceiveUtil {
         return new Packet(packetLen, packetId, data);
     }
 
-    public static void handleMessageFromBot(String formatString, Packet packet, String sessionName) throws VarLongTooBigException, IOException, VarIntStringLengthNotMatchException, VarIntTooBigException, PacketLengthNotMatchException {
+    public static void handleMessageFromBot(String formatString, Packet packet， String sessionName) throws VarLongTooBigException, IOException, VarIntStringLengthNotMatchException, VarIntTooBigException, PacketLengthNotMatchException {
 //        解析群消息的数据包
         byte[] data = Arrays.copyOfRange(packet.getData(), 0, packet.getData().length);
 
@@ -93,22 +93,27 @@ public class ConnectionPacketReceiveUtil {
                 }
                 case 0x03:
                 case 0x05: {
-//                    图片地址
+//                  图片地址
                     VarIntString url = new VarIntString(Arrays.copyOfRange(data, index, data.length));
                     index += url.getBytesLength();
 
-                    TextComponent textComponent = new TextComponent();
+//                  创建图片文本组件
+                    TextComponent imageComponent = new TextComponent();
                     if (id == 0x03) {
-                        textComponent.setText(ConfigOperation.getFormatFromBotMsgPic());
+                        imageComponent.setText(ConfigOperation.getFormatFromBotMsgPic());
                     }
                     if (id == 0x05) {
-                        textComponent.setText(ConfigOperation.getFormatFromBotMsgAnimeFace());
+                        imageComponent.setText(ConfigOperation.getFormatFromBotMsgAnimeFace());
                     }
-                    textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url.getContent()));
-                    textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{
+                    imageComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url.getContent()));
+                    imageComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{
                             new TextComponent("点击查看")
                     }));
-                    textComponents.add(textComponent);
+//                  创建预览文本组件
+                    TextComponent previewComponent = new TextComponent("[[CICode,url=" + url.getContent() + ",name=预览]]");
+//                  添加到文本组件列表
+                    textComponents.add(imageComponent);
+                    textComponents.add(previewComponent);
                     break;
                 }
                 case 0x04: {
