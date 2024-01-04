@@ -40,7 +40,7 @@ public class ConnectionPacketReceiveUtil {
         return new Packet(packetLen, packetId, data);
     }
 
-    public static void handleMessageFromBot(String formatString, Packet packet， String sessionName) throws VarLongTooBigException, IOException, VarIntStringLengthNotMatchException, VarIntTooBigException, PacketLengthNotMatchException {
+    public static void handleMessageFromBot(String formatString, Packet packet, String sessionName) throws VarLongTooBigException, IOException, VarIntStringLengthNotMatchException, VarIntTooBigException, PacketLengthNotMatchException {
 //        解析群消息的数据包
         byte[] data = Arrays.copyOfRange(packet.getData(), 0, packet.getData().length);
 
