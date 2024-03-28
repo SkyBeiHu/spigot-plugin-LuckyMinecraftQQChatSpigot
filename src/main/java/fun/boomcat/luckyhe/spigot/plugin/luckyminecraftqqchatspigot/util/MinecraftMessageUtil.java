@@ -21,7 +21,7 @@ public class MinecraftMessageUtil {
     }
 
     public static void logInfo(String info) {
-        logger.info(info);
+        // logger.info(info);
     }
 
     public static Collection<? extends Player> getOnlinePlayerList() {
