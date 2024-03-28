@@ -55,11 +55,11 @@ public class MinecraftConnectionThread extends Thread {
     private final List<Object> pingRight;
 
     private void logInfo(String threadName, String info) {
-        logger.info("[" + threadName + "] " + info);
+        // logger.info("[" + threadName + "] " + info);
     }
 
     private void logWarning(String threadName, String warning) {
-        logger.info("[" + threadName + "] " + warning);
+        // logger.info("[" + threadName + "] " + warning);
     }
 
     public void sendClosePacket(String info) {
@@ -178,7 +178,7 @@ public class MinecraftConnectionThread extends Thread {
 //                                回应心跳包
                             VarLong ping = new VarLong(packet.getData());
                             if (ping.getValue() == 1 && isFirstTime) {
-                                logger.info("连接成功，收到返回会话名：" + sessionName + "，对方收到连接地址：" + remoteAddress + "，心跳包间隔：" + heartbeatInterval + "秒");
+                                // logger.info("连接成功，收到返回会话名：" + sessionName + "，对方收到连接地址：" + remoteAddress + "，心跳包间隔：" + heartbeatInterval + "秒");
 
                                 MinecraftMessageUtil.sendMinecraftMessage(ReplacePlaceholderUtil.replacePlaceholderWithString(
                                         ConfigOperation.getInfoOnConnected(),
